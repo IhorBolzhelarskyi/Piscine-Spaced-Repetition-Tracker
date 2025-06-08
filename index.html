@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spaced Repetition Tracker</title>
+  </head>
+  <body>
+    <h1>Spaced Repetition Tracker</h1>
+
+    <label for="user-select">Select a user:</label>
+    <select id="user-select" aria-label="User selector">
+      <option value="">-- Select a user --</option>
+    </select>
+
+    <section id="agenda-section" aria-live="polite">
+      <!-- Agenda or message will appear here -->
+    </section>
+
+    <!-- Script modules -->
+    <script type="module" src="./main.mjs"></script>
+  </body>
 </html>
+
+   
