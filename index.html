@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spaced Repetition Tracker</title>
-  </head>
-  <body>
-    <h1>Spaced Repetition Tracker</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spaced Repetition Tracker</title>
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spaced Repetition Tracker</h1>
 
-    <label for="user-select">Select a user:</label>
-    <select id="user-select" aria-label="User selector">
-      <option value="">-- Select a user --</option>
-    </select>
+  <label for="user-select">Select User:</label>
+  <select id="user-select" aria-describedby="user-select-desc">
+    <option value="" selected disabled>Select a user</option>
+  </select>
+  <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
 
-    <section id="agenda-section" aria-live="polite">
-      <!-- Agenda or message will appear here -->
-    </section>
+  <section aria-live="polite" aria-atomic="true" id="agenda-container">
+    <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
+    <ul id="agenda-list" hidden></ul>
+  </section>
 
-    <!-- Script modules -->
-    <script type="module" src="./main.mjs"></script>
-  </body>
+  <script type="module" src="./main.mjs"></script>
+</body>
 </html>
+
 
    
