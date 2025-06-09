@@ -1,13 +1,11 @@
 // Import functions to get user IDs and data from storage
 import { getUserIds } from "./common.mjs";
 import { getData } from "./storage.mjs";
-import { addData } from "./storage.mjs";
 
 // DOM elements for interaction and display
 const userSelect = document.getElementById("user-select");
 const agendaList = document.getElementById("agenda-list");
 const noAgendaMessage = document.getElementById("no-agenda-message");
-const userForm = document.querySelector(`form`);
 const userInput = document.querySelector(`#date`);
 
 /**
@@ -31,15 +29,29 @@ function formatDate(dateStr) {
     day: "numeric",
   });
 }
-// Set current date to Date input
-function setCurrentDate() {
-  const currentDate = new Date();
+
+// format date to sting
+function formatToDateString(date) {
+  const currentDate = date ? new Date(date) : new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const day = String(currentDate.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
 
+// Calculate revision dates
+function calcRevisionDates(topic, inputDateStr) {
+  const intervals = [0, 7, 14, 30, 60, 90, 180, 360];
+  const inputDate = new Date(inputDateStr);
+  const repetitions = [];
+  intervals.forEach((interval) => {
+    const newCopyDate = new Date(inputDate);
+    newCopyDate.setDate(newCopyDate.getDate() + interval);
+    const strDate = formatToDateString(newCopyDate);
+    repetitions.push({ topic, date: strDate });
+  });
+  return repetitions;
+}
 /**
  * Displays the agenda list for the selected user,
  * showing only future or today's revision items
@@ -112,7 +124,8 @@ function onUserChange() {
 function init() {
   populateUserDropdown();
   userSelect.addEventListener("change", onUserChange);
-  userInput.value = setCurrentDate();
+  //set input type date to current date
+  userInput.value = formatToDateString();
 }
 
 // Start initialization when the DOM content is fully loaded
