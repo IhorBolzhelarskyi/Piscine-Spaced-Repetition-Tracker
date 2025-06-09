@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <!-- Make the page responsive on all devices -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spaced Repetition Tracker</title>
-  <style>
-    /* Screen reader only text for accessibility */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-  </style>
-</head>
-<body>
-  <!-- Main heading -->
-  <h1>Spaced Repetition Tracker</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Make the page responsive on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spaced Repetition Tracker</title>
+    <style>
+      /* Screen reader only text for accessibility */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main heading -->
+    <h1>Spaced Repetition Tracker</h1>
 
-  <!-- Label for the user dropdown -->
-  <label for="user-select">Select User:</label>
+    <!-- Label for the user dropdown -->
+    <label for="user-select">Select User:</label>
 
-  <!-- Dropdown to select a user -->
-  <select id="user-select" aria-describedby="user-select-desc">
-    <option value="" selected disabled>Select a user</option>
-  </select>
+    <!-- Dropdown to select a user -->
+    <select id="user-select" aria-describedby="user-select-desc">
+      <option value="" selected disabled>Select a user</option>
+    </select>
 
-  <!-- Hidden descriptive text for screen readers -->
-  <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
+    <!-- Space between -->
+    <br />
+    <br />
+    <!-- Form to add topic and date -->
+    <form>
+      <label for="topic">Write topic:</label>
+      <input type="text" id="topic" name="topic" required />
 
-  <!-- Section where agenda or message will appear -->
-  <section id="agenda-section" aria-live="polite" aria-atomic="true">
-    <!-- Message shown when no agenda is available -->
-    <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
-    <!-- List of agenda items -->
-    <ul id="agenda-list" hidden></ul>
-  </section>
+      <label for="date">Chose date:</label>
+      <input type="date" id="date" name="date" required />
 
-  <!-- Load main JavaScript module -->
-  <script type="module" src="./main.mjs"></script>
-</body>
+      <input type="submit" />
+    </form>
+
+    <!-- Hidden descriptive text for screen readers -->
+    <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
+
+    <!-- Section where agenda or message will appear -->
+    <section id="agenda-section" aria-live="polite" aria-atomic="true">
+      <!-- Message shown when no agenda is available -->
+      <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
+      <!-- List of agenda items -->
+      <ul id="agenda-list" hidden></ul>
+    </section>
+
+    <!-- Load main JavaScript module -->
+    <script type="module" src="./main.mjs"></script>
+  </body>
 </html>
