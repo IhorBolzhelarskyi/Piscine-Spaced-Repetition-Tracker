@@ -1,11 +1,14 @@
 // Import functions to get user IDs and data from storage
 import { getUserIds } from "./common.mjs";
 import { getData } from "./storage.mjs";
+import { addData } from "./storage.mjs";
 
 // DOM elements for interaction and display
 const userSelect = document.getElementById("user-select");
 const agendaList = document.getElementById("agenda-list");
 const noAgendaMessage = document.getElementById("no-agenda-message");
+const userForm = document.querySelector(`form`);
+const userInput = document.querySelector(`#date`);
 
 /**
  * Clears agenda display: empties list and hides both list and no-data message
@@ -28,6 +31,14 @@ function formatDate(dateStr) {
     day: "numeric",
   });
 }
+// Set current date to Date input
+function setCurrentDate() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 /**
  * Displays the agenda list for the selected user,
@@ -48,7 +59,7 @@ function displayAgenda(agenda) {
 
   // Filter agenda to include only today or future dates, then sort ascending
   const filtered = agenda
-    .filter(item => new Date(item.date + "T00:00:00Z") >= today)
+    .filter((item) => new Date(item.date + "T00:00:00Z") >= today)
     .sort((a, b) => new Date(a.date + "T00:00:00Z") - new Date(b.date + "T00:00:00Z"));
 
   // If no future agenda items, show "no agenda" message
@@ -73,7 +84,7 @@ function displayAgenda(agenda) {
  */
 function populateUserDropdown() {
   const users = getUserIds();
-  users.forEach(userId => {
+  users.forEach((userId) => {
     const option = document.createElement("option");
     option.value = userId;
     option.textContent = `User ${userId}`;
@@ -101,6 +112,7 @@ function onUserChange() {
 function init() {
   populateUserDropdown();
   userSelect.addEventListener("change", onUserChange);
+  userInput.value = setCurrentDate();
 }
 
 // Start initialization when the DOM content is fully loaded
