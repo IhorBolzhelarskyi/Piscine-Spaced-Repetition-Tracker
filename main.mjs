@@ -54,18 +54,18 @@ function formatToDateString(date) {
  */
 export function calcRevisionDates(topic, inputDateStr) {
   const intervals = [{ days: 7 }, { months: 1 }, { months: 3 }, { months: 6 }, { months: 12 }];
-  
+
   // Parse input date string as UTC to prevent timezone issues with calculations
-  const inputDate = new Date(inputDateStr + "T00:00:00Z"); 
+  const inputDate = new Date(inputDateStr + "T00:00:00Z");
   const repetitions = [];
 
   intervals.forEach((interval) => {
     // Create a new Date object for each calculation to avoid modifying the original
     const newCopyDate = new Date(inputDate);
-    
+
     // Get the original day of the month before adding intervals
     // Using getUTCDate for consistency with UTC parsing
-    const originalDay = newCopyDate.getUTCDate(); 
+    const originalDay = newCopyDate.getUTCDate();
 
     if (interval.hasOwnProperty("days")) {
       // Add days using UTC day setter
@@ -73,17 +73,17 @@ export function calcRevisionDates(topic, inputDateStr) {
     } else {
       // Add months using UTC month setter
       newCopyDate.setUTCMonth(newCopyDate.getUTCMonth() + interval.months);
-      
+
       // *** IMPORTANT FIX FOR MONTH-END ROLLOVER ***
       // If setting the month resulted in the day rolling over to the next month
       // (e.g., setting Feb 31st results in March 3rd, so current day '3' < original day '31'),
       // then set the date to the last day of the *calculated* month.
       // Setting day to 0 of the current month effectively gets the last day of the *previous* month.
       if (newCopyDate.getUTCDate() < originalDay) {
-        newCopyDate.setUTCDate(0); 
+        newCopyDate.setUTCDate(0);
       }
     }
-    
+
     // Format the calculated date back to YYYY-MM-DD string
     const strDate = formatToDateString(newCopyDate);
     repetitions.push({ topic, date: strDate });
@@ -152,12 +152,18 @@ function onUserChange() {
   clearAgendaDisplay(); // Clear display before showing new user's data
 
   const selectedUser = userSelect.value;
-  if (!selectedUser) { // If no user is selected (e.g., initial state or default empty option)
+  if (!selectedUser) {
+    // If no user is selected (e.g., initial state or default empty option)
     return;
   }
 
   const userData = getData(selectedUser); // Get data from storage.mjs
   displayAgenda(userData); // Display the fetched agenda
+
+  // Reset form inputs
+  userForm.reset();
+  // Set the date picker back to today's date
+  userInputDate.value = formatToDateString();
 }
 
 /**
@@ -181,21 +187,22 @@ function submitForm(e) {
   }
 
   const date = userInputDate.value;
-  if (!date) { // This check is mostly for robustness if HTML 'required' is bypassed
+  if (!date) {
+    // This check is mostly for robustness if HTML 'required' is bypassed
     alert("Please select a date."); // Basic validation feedback
     return;
   }
 
   // Calculate the 5 revision dates
   const userNewData = calcRevisionDates(topic, date);
-  
+
   // Add the new data to storage for the selected user
   addData(selectedUserId, userNewData);
-  
+
   // Get the updated full agenda for the user and refresh the display
   const updatedUserData = getData(selectedUserId);
   displayAgenda(updatedUserData);
-  
+
   // Reset the form inputs
   userForm.reset();
   // Set the date picker back to today's date
@@ -212,7 +219,7 @@ function init() {
   populateUserDropdown();
   userSelect.addEventListener("change", onUserChange);
   userForm.addEventListener("submit", submitForm);
-  
+
   // Set the date input's default value to today's date on load
   userInputDate.value = formatToDateString();
 }
