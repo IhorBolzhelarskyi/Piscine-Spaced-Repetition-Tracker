@@ -15,7 +15,7 @@ Jest: Used for unit testing to ensure the core functionality works as expected.
 
 **Set up & Installation**
 Clone the repository
-git clone https://github.com/eediallo/spaced-repetition-tracker.git
+git clone <https://github.com/eediallo/spaced-repetition-tracker.git>
 Navigate into the project folder (if needed)
  cd spaced-repetition-tracker
 Open index.html in your browser
