@@ -1,12 +1,13 @@
 // Import functions to get user IDs and data from storage
 import { getUserIds } from "./common.mjs";
 import { getData } from "./storage.mjs";
+import { addData } from "./storage.mjs";
 
 // DOM elements for interaction and display
 const userSelect = document.getElementById("user-select");
 const agendaList = document.getElementById("agenda-list");
 const noAgendaMessage = document.getElementById("no-agenda-message");
-const userInput = document.querySelector(`#date`);
+const userInputDate = document.querySelector(`#date`);
 
 /**
  * Clears agenda display: empties list and hides both list and no-data message
@@ -41,12 +42,16 @@ function formatToDateString(date) {
 
 // Calculate revision dates
 function calcRevisionDates(topic, inputDateStr) {
-  const intervals = [0, 7, 14, 30, 60, 90, 180, 360];
+  const intervals = [{ days: 7 }, { months: 1 }, { months: 3 }, { months: 6 }, { months: 12 }];
   const inputDate = new Date(inputDateStr);
   const repetitions = [];
   intervals.forEach((interval) => {
     const newCopyDate = new Date(inputDate);
-    newCopyDate.setDate(newCopyDate.getDate() + interval);
+    if (interval.hasOwnProperty("days")) {
+      newCopyDate.setDate(newCopyDate.getDate() + interval.days);
+    } else {
+      newCopyDate.setMonth(newCopyDate.getMonth() + interval.months);
+    }
     const strDate = formatToDateString(newCopyDate);
     repetitions.push({ topic, date: strDate });
   });
@@ -125,7 +130,7 @@ function init() {
   populateUserDropdown();
   userSelect.addEventListener("change", onUserChange);
   //set input type date to current date
-  userInput.value = formatToDateString();
+  userInputDate.value = formatToDateString();
 }
 
 // Start initialization when the DOM content is fully loaded
