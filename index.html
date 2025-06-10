@@ -2,119 +2,87 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Make the page responsive on all devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Spaced Repetition Tracker</title>
-
     <style>
-      /* Accessibility helper: hides text visually but keeps it for screen readers */
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
-
-      /* Make all interactive elements easier to tap on mobile (min 48x48px) */
-      input,
+      /* Basic styling to ensure touch targets meet minimum size and spacing */
+      /* In a real application, this would be in a separate CSS file */
       select,
+      input[type="text"],
+      input[type="date"],
       button {
-        min-height: 48px;
-        padding: 12px;
-        font-size: 16px;
-        margin-bottom: 16px;
-        display: block;
-        width: 100%;
-        max-width: 400px;
+        min-width: 48px; /* Ensure minimum width for touch targets */
+        min-height: 48px; /* Ensure minimum height for touch targets */
+        padding: 8px 12px; /* Add some padding for better visual appearance and larger clickable area */
+        margin-bottom: 16px; /* Add spacing between elements for better touch target separation */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        display: block; /* Make block-level to ensure margin-bottom applies correctly */
       }
 
-      /* Improve button visibility and touch usability */
-      button {
-        cursor: pointer;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-      }
-
-      button:hover {
-        background-color: #0056b3;
-      }
-
-      /* Layout spacing */
-      body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        line-height: 1.6;
-      }
-
-      form {
-        margin-top: 20px;
-      }
-
+      /* Adjust labels to maintain good alignment with block-level inputs */
       label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
+        margin-bottom: 8px; /* Add some space below labels */
+        display: block; /* Ensure label takes full width */
+      }
+
+      /* Reduce margin for the last element in the fieldset if needed, or adjust general rule */
+      fieldset button {
+        margin-bottom: 0; /* No bottom margin for the last element in the fieldset */
+      }
+
+      /* Small adjustment for the description paragraph to prevent excessive space */
+      p[id="user-select-desc"] {
+        margin-top: -8px; /* Adjust if needed to reduce space between select and description */
+        margin-bottom: 16px; /* Ensure space before the next element */
       }
     </style>
   </head>
   <body>
-    <!-- Main heading for screen readers and users -->
-    <h1>Spaced Repetition Tracker</h1>
+    <header>
+      <h1>Spaced Repetition Tracker</h1>
+    </header>
 
-    <!-- Label for dropdown -->
-    <label for="user-select">Select User:</label>
+    <main>
+      <label for="user-select">Select User:</label>
+      <select id="user-select" aria-describedby="user-select-desc" required aria-required="true">
+        <option value="" selected disabled>--Select a user--</option>
+      </select>
+      <p id="user-select-desc">Choose a user to see their revision agenda.</p>
 
-    <!-- Dropdown for user selection -->
-    <select id="user-select" aria-describedby="user-select-desc">
-      <option value="" selected disabled>--Select a user--</option>
-    </select>
+      <form>
+        <fieldset>
+          <legend>Add New Topic</legend>
 
-    <!-- Hidden description for screen readers -->
-    <p id="user-select-desc" class="sr-only">
-      Choose a user to see their revision agenda.
-    </p>
+          <label for="topic">Topic Name:</label>
+          <input
+            type="text"
+            id="topic"
+            name="topic"
+            placeholder="write your topic"
+            required
+            aria-required="true"
+          />
 
-    <!-- Form section for topic and date input -->
-    <form>
-      <!-- Topic input -->
-      <label for="topic">Topic Name:</label>
-      <input
-        type="text"
-        id="topic"
-        name="topic"
-        placeholder="write your topic"
-        required
-      />
+          <label for="date">Start Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            required
+            aria-required="true"
+          />
 
-      <!-- Date input -->
-      <label for="date">Start Date:</label>
-      <input
-        type="date"
-        id="date"
-        name="date"
-        required
-      />
+          <button type="submit" aria-label="Submit new topic">Submit</button>
+        </fieldset>
+      </form>
 
-      <!-- Submit button -->
-      <button type="submit" aria-label="Submit new topic">Submit</button>
-    </form>
+      <section id="agenda-section" aria-live="polite" aria-atomic="true" tabindex="-1">
+        <h2>Agenda with Revision Dates</h2>
+        <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
+        <ul id="agenda-list" hidden></ul>
+      </section>
+    </main>
 
-    <!-- Agenda display area -->
-    <section id="agenda-section" aria-live="polite" aria-atomic="true">
-      <!-- Message shown when no agenda is available -->
-      <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
-
-      <!-- List of agenda items -->
-      <ul id="agenda-list" hidden></ul>
-    </section>
-
-    <!-- Load main JavaScript module -->
     <script type="module" src="./main.mjs"></script>
   </body>
 </html>
