@@ -1,31 +1,96 @@
-<body>
-  <main>
-    <h1>Spaced Repetition Tracker</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Set character encoding -->
+    <meta charset="UTF-8" />
 
-    <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
-    <label for="user-select">Select User:</label>
-    <select id="user-select" aria-describedby="user-select-desc">
-      <option value="" selected disabled>Select a user</option>
-    </select>
+    <!-- Ensure responsive design on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <br /><br />
+    <!-- Title shown in the browser tab -->
+    <title>Spaced Repetition Tracker</title>
 
-    <form>
-      <label for="topic">Enter topic:</label>
-      <input type="text" id="topic" name="topic" required />
+    <style>
+      /* Visually hidden text (for screen readers only) */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main content landmark for screen readers -->
+    <main>
+      <!-- Main heading of the page -->
+      <h1>Spaced Repetition Tracker</h1>
 
-      <label for="date">Select date:</label>
-      <input type="date" id="date" name="date" required />
+      <!-- Label for the user dropdown -->
+      <label for="user-select">Select User:</label>
 
-      <input type="submit" value="Add Topic" aria-label="Add Topic to Agenda" />
-    </form>
+      <!-- User selection dropdown with screen reader description -->
+      <select id="user-select" aria-describedby="user-select-desc">
+        <!-- Disabled default option -->
+        <option value="" selected disabled>--Select a user--</option>
+      </select>
 
-    <h2 id="agenda-heading">Revision Agenda</h2>
-    <section id="agenda-section" aria-labelledby="agenda-heading" aria-live="polite" aria-atomic="true">
-      <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
-      <ul id="agenda-list" hidden></ul>
-    </section>
-  </main>
+      <!-- Description for screen readers explaining the dropdown purpose -->
+      <p id="user-select-desc" class="sr-only">
+        Choose a user to see their revision agenda
+      </p>
 
-  <script type="module" src="./main.mjs"></script>
-</body>
+      <!-- Subheading for new topic form -->
+      <h2>Add New Topic</h2>
+
+      <!-- Form for adding new topic and date -->
+      <form>
+        <!-- Label and input for topic name -->
+        <label for="topic">Topic Name:</label>
+        <input
+          type="text"
+          id="topic"
+          name="topic"
+          placeholder="write your topic"
+          required
+        />
+
+        <!-- Label and input for start date -->
+        <label for="date">Start Date:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          required
+        />
+
+        <!-- Accessible submit button -->
+        <button type="submit" aria-label="Submit new topic">Submit</button>
+      </form>
+
+      <!-- Agenda section: includes a heading and dynamic content -->
+      <h2 id="agenda-heading">Revision Agenda</h2>
+
+      <!-- This section updates with agenda data -->
+      <section
+        id="agenda-section"
+        aria-labelledby="agenda-heading"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <!-- Shown only when there's no agenda to show -->
+        <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
+
+        <!-- List of agenda items (initially hidden) -->
+        <ul id="agenda-list" hidden></ul>
+      </section>
+    </main>
+
+    <!-- Load JavaScript module (contains logic and event listeners) -->
+    <script type="module" src="./main.mjs"></script>
+  </body>
+</html>
