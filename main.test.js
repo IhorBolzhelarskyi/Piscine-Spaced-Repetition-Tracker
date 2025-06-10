@@ -1,6 +1,3 @@
-// main.test.mjs
-
-// Make sure calcRevisionDates is EXPORTED from your main.mjs file
 import { calcRevisionDates } from './main.mjs';
 
 describe('calcRevisionDates', () => {
