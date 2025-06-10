@@ -8,6 +8,8 @@ const userSelect = document.getElementById("user-select");
 const agendaList = document.getElementById("agenda-list");
 const noAgendaMessage = document.getElementById("no-agenda-message");
 const userInputDate = document.querySelector(`#date`);
+const userForm = document.querySelector(`form`);
+const userInputTopic = document.querySelector("#topic");
 
 /**
  * Clears agenda display: empties list and hides both list and no-data message
@@ -123,12 +125,31 @@ function onUserChange() {
   displayAgenda(userData);
 }
 
+// Event handler for userForm, add topics and dates to local storage and display them in UI
+function submitForm(e) {
+  e.preventDefault();
+  const selectedUserId = userSelect.value;
+  if (!selectedUserId) return;
+
+  const topic = userInputTopic.value.trim();
+  if (!topic) return;
+
+  const date = userInputDate.value;
+  const userNewData = calcRevisionDates(topic, date);
+  addData(selectedUserId, userNewData);
+  const updatedUserData = getData(selectedUserId);
+  displayAgenda(updatedUserData);
+  userForm.reset();
+  userInputDate.value = formatToDateString();
+}
+
 /**
  * Initializes the app by populating dropdown and setting event listener
  */
 function init() {
   populateUserDropdown();
   userSelect.addEventListener("change", onUserChange);
+  userForm.addEventListener("submit", submitForm);
   //set input type date to current date
   userInputDate.value = formatToDateString();
 }
