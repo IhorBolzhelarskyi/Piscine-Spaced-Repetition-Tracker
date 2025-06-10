@@ -1,0 +1,23 @@
+{
+  "name": "piscine-spaced-repetition-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "common.test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IhorBolzhelarskyi/Piscine-Spaced-Repetition-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IhorBolzhelarskyi/Piscine-Spaced-Repetition-Tracker/issues"
+  },
+  "homepage": "https://github.com/IhorBolzhelarskyi/Piscine-Spaced-Repetition-Tracker#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
