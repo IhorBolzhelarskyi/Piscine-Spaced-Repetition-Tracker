@@ -7,6 +7,7 @@ The goal is to help users track which topics need revision and when.
 Topic Tracking: Users can add topics they want to revise.
 Revision Schedule: The system calculates and displays the revision dates based on spaced repetition intervals.
 Agenda Display: A simple frontend built with HTML and JavaScript shows an agenda of topics to revise on specific dates.
+
 **Technologies**
 HTML: Used for the structure of the project.
 JavaScript: Used for functionality, including date calculations, user interaction, and data storage.
@@ -15,7 +16,7 @@ Jest: Used for unit testing to ensure the core functionality works as expected.
 
 **Set up & Installation**
 Clone the repository
-git clone <https://github.com/eediallo/spaced-repetition-tracker.git>
+git clone git clone <https://github.com/eediallo/spaced-repetition-tracker.git>
 Navigate into the project folder (if needed)
  cd spaced-repetition-tracker
 Open index.html in your browser
