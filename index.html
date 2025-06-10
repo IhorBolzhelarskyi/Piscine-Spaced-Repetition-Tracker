@@ -1,40 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Make the page responsive on all devices -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Spaced Repetition Tracker</title>
-    <style>
-      /* Screen reader only text for accessibility */
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Main heading -->
+<body>
+  <main>
     <h1>Spaced Repetition Tracker</h1>
 
-    <!-- Label for the user dropdown -->
+    <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
     <label for="user-select">Select User:</label>
-
-    <!-- Dropdown to select a user -->
     <select id="user-select" aria-describedby="user-select-desc">
       <option value="" selected disabled>Select a user</option>
     </select>
 
-    <!-- Space between -->
-    <br />
-    <br />
-    <!-- Form to add topic and date -->
+    <br /><br />
+
     <form>
       <label for="topic">Enter topic:</label>
       <input type="text" id="topic" name="topic" required />
@@ -42,21 +17,15 @@
       <label for="date">Select date:</label>
       <input type="date" id="date" name="date" required />
 
-      <input type="submit" />
+      <input type="submit" value="Add Topic" aria-label="Add Topic to Agenda" />
     </form>
 
-    <!-- Hidden descriptive text for screen readers -->
-    <p id="user-select-desc" class="sr-only">Choose a user to see their revision agenda</p>
-
-    <!-- Section where agenda or message will appear -->
-    <section id="agenda-section" aria-live="polite" aria-atomic="true">
-      <!-- Message shown when no agenda is available -->
+    <h2 id="agenda-heading">Revision Agenda</h2>
+    <section id="agenda-section" aria-labelledby="agenda-heading" aria-live="polite" aria-atomic="true">
       <p id="no-agenda-message" hidden>No agenda to show for selected user.</p>
-      <!-- List of agenda items -->
       <ul id="agenda-list" hidden></ul>
     </section>
+  </main>
 
-    <!-- Load main JavaScript module -->
-    <script type="module" src="./main.mjs"></script>
-  </body>
-</html>
+  <script type="module" src="./main.mjs"></script>
+</body>
