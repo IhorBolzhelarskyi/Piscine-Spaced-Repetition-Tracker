@@ -43,7 +43,7 @@ function formatToDateString(date) {
 }
 
 // Calculate revision dates
-function calcRevisionDates(topic, inputDateStr) {
+export function calcRevisionDates(topic, inputDateStr) {
   const intervals = [{ days: 7 }, { months: 1 }, { months: 3 }, { months: 6 }, { months: 12 }];
   const inputDate = new Date(inputDateStr);
   const repetitions = [];
