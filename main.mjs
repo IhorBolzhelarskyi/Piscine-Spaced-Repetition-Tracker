@@ -73,12 +73,7 @@ export function calcRevisionDates(topic, inputDateStr) {
     } else {
       // Add months using UTC month setter
       newCopyDate.setUTCMonth(newCopyDate.getUTCMonth() + interval.months);
-
-      // *** IMPORTANT FIX FOR MONTH-END ROLLOVER ***
-      // If setting the month resulted in the day rolling over to the next month
-      // (e.g., setting Feb 31st results in March 3rd, so current day '3' < original day '31'),
-      // then set the date to the last day of the *calculated* month.
-      // Setting day to 0 of the current month effectively gets the last day of the *previous* month.
+      
       if (newCopyDate.getUTCDate() < originalDay) {
         newCopyDate.setUTCDate(0);
       }
