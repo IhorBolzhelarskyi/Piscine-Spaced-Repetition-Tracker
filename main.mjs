@@ -7,9 +7,9 @@ import { addData } from "./storage.mjs";
 const userSelect = document.getElementById("user-select");
 const agendaList = document.getElementById("agenda-list");
 const noAgendaMessage = document.getElementById("no-agenda-message");
-const userInputDate = document.querySelector(`#date`);
-const userForm = document.querySelector(`form`);
-const userInputTopic = document.querySelector("#topic");
+const userInputDate = document.getElementById("date");
+const userForm = document.getElementById("form");
+const userInputTopic = document.getElementById("topic");
 
 /**
  * Clears agenda display: empties list and hides both list and no-data message
