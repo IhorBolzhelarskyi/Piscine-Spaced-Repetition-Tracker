@@ -26,14 +26,22 @@ function clearAgendaDisplay() {
  * Uses UTC to ensure consistent formatting across timezones.
  */
 function formatDate(dateStr) {
-  const date = new Date(dateStr + "T00:00:00Z"); // Parse as UTC to avoid timezone issues
-  return date.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+  const date = new Date(dateStr + "T00:00:00Z");
+  const day = date.getUTCDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getUTCFullYear();
 
+  const ordinal = (n) => {
+    if (n > 3 && n < 21) return "th"; // 4th–20th
+    switch (n % 10) {
+      case 1: return "st";
+      case 2: return "nd";
+      case 3: return "rd";
+      default: return "th";
+    }
+  };
+  return `${day}${ordinal(day)} ${month} ${year}`;
+}
 /**
  * Formats a Date object into a YYYY-MM-DD string.
  * Defaults to current date if no date object is provided.
